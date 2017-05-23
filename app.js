@@ -6,7 +6,8 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
-var users = require('./routes/users');
+var register = require('./routes/register');
+var search = require('./routes/search');
 
 var app = express();
 
@@ -20,10 +21,15 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+
 app.use(express.static(path.join(__dirname, 'public')));
+app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
+app.use('/javascripts',express.static(__dirname + 'node_modules/jquery/dist')); // JQuery connection after npm install
+app.use('/stylesheets',express.static(__dirname + 'node_modules/bootstrap/dist/css')); // CSS bootstrap connection after npm install
 
 app.use('/', index);
-app.use('/users', users);
+app.use('/register', register);
+app.use('/search', search);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
