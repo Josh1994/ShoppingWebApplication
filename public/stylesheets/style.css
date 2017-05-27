@@ -6,3 +6,19 @@ body {
 a {
   color: #00B7FF;
 }
+
+.shop-header{
+  border-bottom: 1px solid;
+  color: #eeeeee;
+  margin-top: 15px;
+  margin-bottom: 24px;
+}
+
+.shop-header h1{
+  font-size: 70px;
+}
+
+/*.glyphicon glyphicon-floppy-saved{
+  padding-top: 19.5px;
+  padding-bottom:19.5px;
+}*/
