@@ -6,8 +6,8 @@ var pg = require('pg').native;
 
 //TODO
 router.get('/', function(req, res, next) {
-  console.log(process.env.DATABASE_URL);
-  console.log(req.params.sometime);
+  console.log("Search router / database: "+process.env.DATABASE_URL);
+  console.log("Search router / req.param: "+req.params.sometime);
   //console.log(req.query.paramName);
   console.log(req.query);
   res.render('search', 
@@ -20,8 +20,8 @@ router.get('/:tag', function(req, res, next) {
 
   var tags = req.params.tag;
   var type= req.query.e;
-  console.log(tags);
-  console.log(type);
+  console.log("Search router get tags: "+tags);
+  console.log("Search router get type: "+type);
   var searchResults = [];
   pg.connect(database, function(err, client, done){
     if(err){
