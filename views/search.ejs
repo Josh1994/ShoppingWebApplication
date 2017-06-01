@@ -12,7 +12,7 @@
       <% } else{ %>  
         <ul class="breadcrumb">
           <li><a href="/">Home</a></li>
-          <li class="active"><a href="/search">Search </a></li>
+          <li class="active">Search </a></li>
         </ul>  
       <% } %>
     </div>
@@ -53,8 +53,15 @@
           </div>
       </div>
     <% } else{ %>  
-
+      <div class="form-group">
+        <div class="input-group">
+          <span class="input-group-addon fa fa-search"></span>
+          <input class="form-control" name="searchText" type="text">
+          <span class="input-group-btn">
+            <button id="searchButton" class="btn btn-default" type="button">Search</button>
+          </span>
+        </div>
+      </div>
     <% } %>
-
   </body>
 </html>
