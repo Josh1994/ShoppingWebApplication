@@ -23,14 +23,6 @@ app.put('/login', function(req, res){
   client.query("select * from users ")
 
 
-
-
-
-  query = squel.select()
-    .from('users')
-    .where("username = ?", username)
-    .toString();
-
 });
 */
 

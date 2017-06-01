@@ -7,14 +7,4 @@ router.get('/', function(req, res, next) {
   res.render('register', { title: 'Register Page' });
 });
 
-router.post('/', function(req, res, next) {
-		var email = req.body.email;
-		var password = req.body.password;
-		var repeat = req.body.repeat;
-		database.query("insert into users(name, password) if not exists ")
-		
-});
-	
-
-
 module.exports = router;
