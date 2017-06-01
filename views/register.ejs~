@@ -1,12 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
+  	 <% include layout.ejs -%>
     <link rel="stylesheet" type="text/css" href="../public/stylesheets/style.css">
   </head>
   <body>
     <h1>Register your hat shop account!</h1>
     <p>Welcome to Register Page</p>
-    <form action="/action_page.php">
+    <form action="/register" method = "post">
   		<div class="container">
     		<label><b>Email</b></label>
     		<input type="text" placeholder="Enter Email" name="email" required>
@@ -20,8 +21,8 @@
     		<p>By creating an account you agree to our <a href="#">Terms & Privacy</a>.</p>
 
     		<div class="clearfix">
-      		<button type="button"  class="cancelbtn">Cancel</button>
-      		<button type="submit" class="signupbtn">Sign Up</button>
+      		<a class="btn btn-success" onClick = "window.location='/';">Cancel</a>
+      		<a class="btn btn-success" onclick = "window.location='/login';" >Sign Up</button>
     		</div>
   		</div>
 	 </form>
