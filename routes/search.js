@@ -6,8 +6,7 @@ var pg = require('pg').native;
 
 //This will be where the manual searching is done.
 router.get('/', function(req, res, next) {
-  console.log("Search router / database: "+process.env.DATABASE_URL);
-  console.log("Search router / req.param: "+req.params.sometime);
+  console.log("Search router / req.param: "+req.query.searchAnswer);
   //console.log(req.query.paramName);
   console.log(req.query);
  // done();
