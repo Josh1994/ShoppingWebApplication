@@ -14,32 +14,32 @@ router.get('/', function(req, res, next) {
   res.render('index', { title: 'Home Page' });
 });
 
-router.post('/', function(req, res, next) {
-		var email = req.body.email;
-		var password = req.body.psw;
-		var repeat = req.body.psw-repeat;
-		console.log(req.body.email);
-		console.log(req.body.psw);
-		console.log(req.body.psw-repeat);
-		pg.connect(database, function(err, client, done){
-			if(err){
-				throw err;			
-			}
-			client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
+// router.post('/', function(req, res, next) {
+// 		var email = req.body.email;
+// 		var password = req.body.psw;
+// 		var repeat = req.body.psw-repeat;
+// 		console.log(req.body.email);
+// 		console.log(req.body.psw);
+// 		console.log(req.body.psw-repeat);
+// 		pg.connect(database, function(err, client, done){
+// 			if(err){
+// 				throw err;			
+// 			}
+// 			client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
 
-			,function(error, result){
-				if(error){
-					res.status(500).send("Email already exists");
-					done();				
-				} else {
-					done();
+// 			,function(error, result){
+// 				if(error){
+// 					res.status(500).send("Email already exists");
+// 					done();				
+// 				} else {
+// 					done();
 					
-				}
-			});
-		});
+// 				}
+// 			});
+// 		});
 		
 		
-});
+// });
 	
 
 

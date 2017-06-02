@@ -7,10 +7,6 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login Page' });
 });
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home Page' });
-});
-
 //PUT request for login
 router.put('/', function(req, res){
 
@@ -35,10 +31,43 @@ router.put('/', function(req, res){
         }
     });
   });
-
-
-
 });
 
+//POST request for login
+router.post('/', function(req, res, done){
+  console.log(req.body);
+  var email = req.body.email;
+  var password = req.body.psw;
+  var repeat = req.body.pswrepeat;
+  console.log(req.body.email);
+  console.log(req.body.psw);
+  console.log(req.body.pswrepeat);
+
+  if(password != repeat){
+      console.log("Passwords do not match");
+      res.redirect('/register');
+
+  }
+  else{
+    console.log("Password and repeat match")
+    pg.connect(database, function(err, client, done){
+      if(err){
+        throw err;      
+      }
+      client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
+
+      ,function(error, result){
+        if(error){
+          res.status(500).send("Email already exists");
+          done();       
+        } else {
+          done();
+          res.render('login', { title: 'Login Page' });
+        }
+      });
+    });
+  }
+  
+});
 
 module.exports = router;
