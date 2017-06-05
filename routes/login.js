@@ -7,33 +7,7 @@ router.get('/', function(req, res, next) {
   res.render('login', { title: 'Login Page' });
 });
 
-//PUT request for login
-router.put('/', function(req, res){
-
-  var username = req.body.user;
-  var pwd = req.body.password;
-  console.log(req.body.user);
-  console.log(req.body.password);
-
-
-  pg.connect(database, function(err, client, done){
-    if(err){
-      throw err;
-    }
-
-    client.query("SELECT * FROM users WHERE email = '" +username+  '"AND password = "' +pwd+
-    function(error, result){
-      if(error){
-        res.status(500).send("Incorrect Password");
-        done();
-      } else {
-        done();
-        }
-    });
-  });
-});
-
-//POST request for login
+//POST request for register
 router.post('/', function(req, res, done){
   console.log(req.body);
   var email = req.body.email;
@@ -58,8 +32,9 @@ router.post('/', function(req, res, done){
 
       ,function(error, result){
         if(error){
-          res.status(500).send("Email already exists");
-          done();       
+          done(); 
+          res.render('error', { message: 'User Registration error',
+                                error: error });      
         } else {
           done();
           res.render('login', { title: 'Login Page' });
@@ -69,5 +44,6 @@ router.post('/', function(req, res, done){
   }
   
 });
+
 
 module.exports = router;
