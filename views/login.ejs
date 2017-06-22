@@ -1,10 +1,39 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
+=======
+>>>>>>> master
 <html>
   <head>
     <% include layout.ejs -%>
   </head>
   <body>
+<<<<<<< HEAD
     <h1><%= Login %></h1>
     <p>Welcome to <%= title %></p>
+=======
+    <h1><center><%= title %></center></h1>
+    <p><center>Welcome to <%= title %></center></p>
+    <div class="container">
+        <div class="card card-container">
+            <!-- <img class="profile-img-card" src="//lh3.googleusercontent.com/-6V8xOA6M7BA/AAAAAAAAAAI/AAAAAAAAAAA/rzlHcD0KYwo/photo.jpg?sz=120" alt="" /> -->
+            <img id="profile-img" class="profile-img-card" src="http://vignette3.wikia.nocookie.net/clubpenguin/images/8/82/Polka_Dot_Puffle_Hat.png/revision/latest?cb=20131027053109" />
+            <p id="profile-name" class="profile-name-card"></p>
+            <form class="form-signin" action="/" method = "post">
+                <span id="reauth-user" class="reauth-user"></span>
+                <input type="user" id="inputUser" name="user" class="form-control" placeholder="Username" required autofocus>
+                <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
+                <div id="remember" class="checkbox">
+                    <label>
+                        <input type="checkbox" value="remember-me"> Remember me
+                    </label>
+                </div>
+                <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
+            </form><!-- /form -->
+            <a href="#" class="forgot-password">
+                Forgot the password?
+            </a>
+        </div><!-- /card-container -->
+    </div><!-- /container -->
+>>>>>>> master
   </body>
 </html>

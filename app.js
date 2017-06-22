@@ -1,4 +1,4 @@
-// website: https://hatshop.herokuapp.com/ 
+// website: https://hatshop.herokuapp.com/
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
@@ -9,6 +9,7 @@ var bodyParser = require('body-parser');
 var index = require('./routes/index');
 var register = require('./routes/register');
 var search = require('./routes/search');
+var login = require('./routes/login');
 
 var app = express();
 
@@ -25,12 +26,13 @@ app.use(cookieParser());
 
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
-app.use('/javascripts',express.static(__dirname + 'node_modules/jquery/dist')); // JQuery connection after npm install
+//app.use('/javascripts',express.static(path.join(__dirname + 'node_modules/jquery/dist'))); // JQuery connection after npm install
 //app.use('/stylesheets',express.static(__dirname + 'node_modules/bootstrap/dist/css')); // CSS bootstrap connection after npm install
 
 app.use('/', index);
 app.use('/register', register);
 app.use('/search', search);
+app.use('/login', login);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
