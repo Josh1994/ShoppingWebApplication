@@ -1,0 +1,11 @@
+{
+	"port": "3000",
+	"request_token_url": "https://api.twitter.com/oauth/request_token",
+	"access_token_url": "https://api.twitter.com/oauth/access_token",
+	"authorize_url": "https://twitter.com/oauth/authorize",
+	"consumer_key": "jvC0Skr1uw35lTtORSjHyqeSd",
+	"consumer_secret": "I8LnZ4QMEo0Pbs3tKhpkMx3KJi56bUCovryTKO2v9bT5PIL0w3",
+	"oauth_version": "1.0",
+	"oauth_signature": "HMAC-SHA1",
+	"oauth_callback": "https://hatshop.herokuapp.com/search"
+}

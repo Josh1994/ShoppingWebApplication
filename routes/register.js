@@ -23,24 +23,24 @@ router.post('/', function(req, res, next) {
 		console.log(req.body.psw-repeat);
 		pg.connect(database, function(err, client, done){
 			if(err){
-				throw err;			
+				throw err;
 			}
 			client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
 
 			,function(error, result){
 				if(error){
 					res.status(500).send("Email already exists");
-					done();				
+					done();
 				} else {
 					done();
-					
+
 				}
 			});
 		});
-		
-		
+
+
 });
-	
+
 
 
 module.exports = router;

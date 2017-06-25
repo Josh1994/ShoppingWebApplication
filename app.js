@@ -10,12 +10,19 @@ var index = require('./routes/index');
 var register = require('./routes/register');
 var search = require('./routes/search');
 var login = require('./routes/login');
+// Used for oAuth
+var authenticator = require('./authenticator');
+var url = require('url');
+var config = require('./config');
 
 var app = express();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'ejs');
+
+// Add cookie parsing functionality to our Express app
+app.use(require('cookie-parser')());
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
@@ -53,3 +60,23 @@ app.use(function(err, req, res, next) {
 });
 
 module.exports = app;
+
+/* OAuth */
+
+// Code to connect to our database goes here. Will likely use MongoDB, a document database rather than a relational
+// database.
+// {}.connect();
+
+// Take user to Twitter's login page
+app.get('/auth/twitter', authenticator.redirectToTwitterLoginPage);
+
+// This is the callback url that the user is redirected to after signing in
+app.get(url.parse(config.oauth_callback).path, function(req, res) {
+	authenticator.authenticate(req, res, function(err) {
+		if (err) {
+			res.redirect('/login');
+		} else {
+			res.redirect('/');
+		}
+	});
+});
