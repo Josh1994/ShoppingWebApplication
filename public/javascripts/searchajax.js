@@ -15,7 +15,7 @@ $(document).ready(function() {
       console.log(textboxvalue);
       $.ajax({
           method: 'GET',
-          url: '/search',
+          url: '/search/result',
           data: ({
           'searchAnswer': textboxvalue
           }),
@@ -23,11 +23,20 @@ $(document).ready(function() {
           dataType: "json",
           success:function(data){
             var json = data;
-            console.log("GET success response "+json.code+" "+json.message);
+          //  console.log(data);
+            console.log("GET success response "+json.searchArray[0].name);
+           // console.log("GET success response "+json.result[0].searchArray[0].name);
+            for (var result in json.SearchArray){
+               $('#searchResult').append(
+                  $('#myuser').val(user.user_name);
+                  $('#myEmail').val(user.email);
+                  $('#myAddress').val(user.address);
+                );
+            }
           },
-          error:function(data){
+          error:function(xhr, status, error, data){
             var json = data;
-            console.log("GET error response "+json.message);
+            console.log("GET error response "+xhr.responseText);
           }
       });
 
