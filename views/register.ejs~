@@ -21,7 +21,7 @@
 
     		<div class="clearfix">
       		<a class="btn btn-success" onClick = "window.location='/';">Cancel</a>
-      		<button type="submit" class="btn btn-success" onclick="location.href='/login';"  >Sign Up</button>
+      		<button type="submit" class="btn btn-success" onclick="location.href='/login.ejs';"  >Sign Up</button>
     		</div>
   		</div>
 	 </form>
