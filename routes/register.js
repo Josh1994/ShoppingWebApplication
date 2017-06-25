@@ -25,20 +25,16 @@ router.post('/', function(req, res, next) {
 			if(err){
 				throw err;			
 			}
-			client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
-
+			client.query("insert into users(email, password, userRole) VALUES ('"+email+"',crypt('"+password+"', gen_salt('bf', 8)),'member');"
 			,function(error, result){
 				if(error){
 					res.status(500).send("Email already exists");
 					done();				
 				} else {
 					done();
-					
 				}
-			});
+			});		
 		});
-		
-		
 });
 	
 
