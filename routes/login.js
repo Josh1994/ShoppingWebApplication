@@ -32,9 +32,9 @@ router.post('/', function(req, res, done){
 
       ,function(error, result){
         if(error){
-          done();
+          done(); 
           res.render('error', { message: 'User Registration error',
-                                error: error });
+                                error: error });      
         } else {
           done();
           res.render('login', { title: 'Login Page' });
@@ -42,7 +42,7 @@ router.post('/', function(req, res, done){
       });
     });
   }
-
+  
 });
 
 

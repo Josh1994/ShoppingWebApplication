@@ -33,13 +33,12 @@ router.post('/', function(req, res){
       }
       else if(result.rowCount==0){
         done();
-        res.send("Username and password do not match. Please try again. ");
+        res.send("Wrong username / password");
       }
       else {
         console.log(result);
         done();
-        // (view, [locals], callback)
-        res.render('/', { title: 'Main Page',
+        res.render('index', { title: 'Main Page',
                               user: result[0].email });
       }
     });
