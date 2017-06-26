@@ -1,8 +1,11 @@
 <html>
   <head>
     <% include layout.ejs -%>
+    <meta charset="UTF-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.4/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
   </head>
-  <body>
+  <body ng-app="app" ng-controller="ctrl">
     <h1><center><%= title %></center></h1>
     <p><center>Welcome to <%= title %></center></p>
     <div class="container">
@@ -15,16 +18,29 @@
                 <input type="user" id="inputUser" name="user" class="form-control" placeholder="Username" required autofocus>
                 <input type="password" id="inputPassword" name="password" class="form-control" placeholder="Password" required>
                 <div id="remember" class="checkbox">
-                    <label>
-                        <input type="checkbox" value="remember-me"> Remember me
-                    </label>
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
             </form><!-- /form -->
-            <a href="#" class="forgot-password">
-                Forgot the password?
-            </a>
+            <button class="btn btn-lg btn-primary btn-block btn-signin-google" ng-click="login()"> Sign in with Google </button>
         </div><!-- /card-container -->
     </div><!-- /container -->
   </body>
+
+  <script>
+    var app = angular.module("app", []);
+    app.controller("ctrl", function($scope, $http, $window){
+
+      var url;
+      $http.get("url").then(function(response){
+
+        url = response.data;
+        console.log(url);
+      });
+
+      $scope.login = function() {
+        $window.open(url, "Please sign in with Google", "width=500px,height=700px");
+      };
+
+    });
+  </script>
 </html>
