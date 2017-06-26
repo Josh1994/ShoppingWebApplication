@@ -13,23 +13,32 @@ $(document).ready(function() {
     $('#searchButton').click(function(event){
       var textboxvalue = $('input[name=searchText]').val();
       console.log(textboxvalue);
-      // $.ajax({
-      //     method: 'POST',
-      //     url: 'http://localhost:8080/search',
-      //     data: JSON.stringify({
-      //     task: taskName
-      //     }),
-      //     contentType: "application/json",
-      //     dataType: "json",
-      //     success:function(data){
-      //       var json = data;
-      //       console.log("POST success response "+json.code+" "+json.message);
-      //     },
-      //     error:function(data){
-      //       var json = data;
-      //       console.log("POST error response "+json.message);
-      //     }
-      // });
+      $.ajax({
+          method: 'GET',
+          url: '/search/result',
+          data: ({
+          'searchAnswer': textboxvalue
+          }),
+          contentType: "application/json",
+          dataType: "json",
+          success:function(data){
+            var json = data;
+          //  console.log(data);
+            console.log("GET success response "+json.searchArray[0].name);
+           // console.log("GET success response "+json.result[0].searchArray[0].name);
+            for (var result in json.SearchArray){
+               $('#searchResult').append(
+                  $('#myuser').val(user.user_name);
+                  $('#myEmail').val(user.email);
+                  $('#myAddress').val(user.address);
+                );
+            }
+          },
+          error:function(xhr, status, error, data){
+            var json = data;
+            console.log("GET error response "+xhr.responseText);
+          }
+      });
 
     });
 });
