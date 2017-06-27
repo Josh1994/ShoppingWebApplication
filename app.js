@@ -1,7 +1,5 @@
 // website: https://hatshop.herokuapp.com/
 
-
-
 /* ------------------------------ Modules ------------------------------ */
 
 var express = require('express');
@@ -17,22 +15,26 @@ var search = require('./routes/search');
 var login = require('./routes/login');
 
 // Used for OAuth
-var authenticator = require('./authenticator');
+// var authenticator = require('./authenticator');
 var url = require('url');
 var config = require('./config');
 var google = require('googleapis');
 
 /* ---------------- Google Identity (OAuth 2.0) Constants ------------------ */
 
-const TOKEN_SECRET = 'xxx'
+// Not yet implemented.
+// const TOKEN_SECRET = 'xxx'
 
-const CLIENT_ID = '184838967778-thvc3v3r33phl17u998tr17fp9120bov.apps.googleusercontent.com';
-const CLIENT_SECRET = 'EyqiXzYTcxwxoejP3z1CD3tK';
-const REDIRECT_URL = 'http://localhost:3000/search'
+const CLIENT_ID = "184838967778-thvc3v3r33phl17u998tr17fp9120bov.apps.googleusercontent.com";
+const CLIENT_SECRET = "EyqiXzYTcxwxoejP3z1CD3tK";
+
+var port = process.env.PORT || 8080;
 
 
 /* ------------------------------ Middleware ------------------------------ */
 var app = express();
+app.use(express.static('views'));
+
 
 /* Start of Google Middleware */
 var OAuth2 = google.auth.OAuth2;
@@ -43,13 +45,13 @@ var oauth2Client = new OAuth2(
 );
 
 // Generate a url that asks permissions for Google+ and Google Calendar scopes
-var scopes = ["https://www.googleapis.com/auth/plus.me", "profile", "email", "openid"];
+var scopes = [
+  'https://www.googleapis.com/auth/gmail.modify'
+];
 
-var OAuthURL = oauth2Client.generateAuthUrl({
-  // 'online' (default) or 'offline' (gets refresh_token)
-  access_type: 'offline',
-  // If you only need one scope you can pass it as a string
-  scope: scopes,
+var url = oauth2Client.generateAuthUrl({
+  access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
+  scope: scopes // If you only need one scope you can pass it as string
 });
 
 /* End of Google Middleware */
@@ -78,12 +80,17 @@ app.use('/register', register);
 app.use('/search', search);
 app.use('/login', login);
 
+/* This is currently giving errors with the OAuth, even though there isn't anything wrong.
+Will need to work on a new implementation of the below error handler.
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
   err.status = 404;
   next(err);
 });
+
+*/
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -103,15 +110,42 @@ module.exports = app;
 
 //Get request that redirects to a specifically created Google address for oAuth
 app.get("/url", function(req, res) {
+  console.log('Redirected to specifically created google address');
+  //res.cacheControl("no-cache");
   res.send(url);
 });
 
+app.get("/tokens", function(req, res) {
 
+/*
+  var code = req.query.code;
+    oauth2Client.getToken(code, function(error, tokens){
+      if(!error) {
+        console.log(tokens);
+        oauth2Client.setCredentials(tokens);
+      } else {
+        res.status(400).json();
+      }
+    });
+*/
 
+  var code = req.query.code;
+  console.log('HEY! inside /tokens');
+  console.log(code);
 
-
-
-
+  oauth2Client.getToken(code, function(err, tokens) {
+    if (err) {
+      console.log(err);
+      res.send(err);
+      return;
+    }
+    console.log("YOZA!");
+    console.log(err);
+    console.log(tokens);
+    oauth2Client.setCredentials(tokens);
+    res.send(tokens);
+  });
+});
 
 
 /* ------------------------------ OAuth - Twitter ------------------------------ */
