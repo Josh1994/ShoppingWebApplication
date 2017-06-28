@@ -26,7 +26,7 @@ router.post('/', function(req, res, done){
     console.log("Password and repeat match")
     pg.connect(database, function(err, client, done){
       if(err){
-        throw err;      
+        throw err;
       }
       client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
 
@@ -44,6 +44,5 @@ router.post('/', function(req, res, done){
   }
 
 });
-
 
 module.exports = router;
