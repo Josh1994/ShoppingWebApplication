@@ -1,33 +1,33 @@
 0 info it worked if it ends with ok
-1 verbose cli [ '/usr/pkg/bin/node', '/usr/pkg/bin/npm', 'start' ]
-2 info using npm@4.1.2
-3 info using node@v7.7.3
+1 verbose cli [ '/usr/local/bin/node', '/usr/local/bin/npm', 'start' ]
+2 info using npm@3.10.10
+3 info using node@v6.10.3
 4 verbose run-script [ 'prestart', 'start', 'poststart' ]
 5 info lifecycle shoppingapp@0.0.0~prestart: shoppingapp@0.0.0
 6 silly lifecycle shoppingapp@0.0.0~prestart: no script for prestart, continuing
 7 info lifecycle shoppingapp@0.0.0~start: shoppingapp@0.0.0
 8 verbose lifecycle shoppingapp@0.0.0~start: unsafe-perm in lifecycle true
-9 verbose lifecycle shoppingapp@0.0.0~start: PATH: /usr/pkg/lib/node_modules/npm/bin/node-gyp-bin:/am/st-james/home1/thriftfran/2017/NWEN304/ShoppingWebApplication/node_modules/.bin:/usr/pkg/qt4/bin:/usr/pkg/java/bin:/usr/pkg/java/sun-8/bin:/usr/local/bin:/usr/pkg/bin:/bin:/usr/bin:/usr/games
-10 verbose lifecycle shoppingapp@0.0.0~start: CWD: /am/st-james/home1/thriftfran/2017/NWEN304/ShoppingWebApplication
+9 verbose lifecycle shoppingapp@0.0.0~start: PATH: /usr/local/lib/node_modules/npm/bin/node-gyp-bin:/Users/Corey/Dropbox/NWEN304/Group Project/ShoppingWebApplication/node_modules/.bin:/Users/Corey/miniconda3/bin:/Library/Frameworks/Python.framework/Versions/3.5/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/bin
+10 verbose lifecycle shoppingapp@0.0.0~start: CWD: /Users/Corey/Dropbox/NWEN304/Group Project/ShoppingWebApplication
 11 silly lifecycle shoppingapp@0.0.0~start: Args: [ '-c', 'node ./bin/www' ]
 12 silly lifecycle shoppingapp@0.0.0~start: Returned: code: 1  signal: null
 13 info lifecycle shoppingapp@0.0.0~start: Failed to exec start script
 14 verbose stack Error: shoppingapp@0.0.0 start: `node ./bin/www`
 14 verbose stack Exit status 1
-14 verbose stack     at EventEmitter.<anonymous> (/usr/pkg/lib/node_modules/npm/lib/utils/lifecycle.js:279:16)
+14 verbose stack     at EventEmitter.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/lifecycle.js:255:16)
 14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at EventEmitter.emit (events.js:194:7)
-14 verbose stack     at ChildProcess.<anonymous> (/usr/pkg/lib/node_modules/npm/lib/utils/spawn.js:40:14)
+14 verbose stack     at EventEmitter.emit (events.js:191:7)
+14 verbose stack     at ChildProcess.<anonymous> (/usr/local/lib/node_modules/npm/lib/utils/spawn.js:40:14)
 14 verbose stack     at emitTwo (events.js:106:13)
-14 verbose stack     at ChildProcess.emit (events.js:194:7)
-14 verbose stack     at maybeClose (internal/child_process.js:899:16)
+14 verbose stack     at ChildProcess.emit (events.js:191:7)
+14 verbose stack     at maybeClose (internal/child_process.js:886:16)
 14 verbose stack     at Process.ChildProcess._handle.onexit (internal/child_process.js:226:5)
 15 verbose pkgid shoppingapp@0.0.0
-16 verbose cwd /am/st-james/home1/thriftfran/2017/NWEN304/ShoppingWebApplication
-17 error Linux 4.9.6-1-ARCH
-18 error argv "/usr/pkg/bin/node" "/usr/pkg/bin/npm" "start"
-19 error node v7.7.3
-20 error npm  v4.1.2
+16 verbose cwd /Users/Corey/Dropbox/NWEN304/Group Project/ShoppingWebApplication
+17 error Darwin 16.5.0
+18 error argv "/usr/local/bin/node" "/usr/local/bin/npm" "start"
+19 error node v6.10.3
+20 error npm  v3.10.10
 21 error code ELIFECYCLE
 22 error shoppingapp@0.0.0 start: `node ./bin/www`
 22 error Exit status 1
