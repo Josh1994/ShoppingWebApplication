@@ -41,7 +41,8 @@ router.post('/', function(req, res){
       else {
         console.log(result);
         done();
-        res.render('Search', { title: 'Search Page' });
+        res.render('search', { title: 'Search Page' });
+
         /* Not currently working, giving error : Cannot read property 'email' of undefined
         res.render('/', { title: 'Main Page',
                               user: result[0].email });
