@@ -19,8 +19,6 @@ router.post('/', function(req, res){
 
   var username = req.body.user;
   var pwd = req.body.password;
-  console.log(req.body.user);
-  console.log(req.body.password);
 
   console.log("Login GET user: "+username);
   console.log("Login GET pwd: "+pwd);

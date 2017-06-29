@@ -20,8 +20,10 @@ var google = require('googleapis');
 var expressJWT = require('express-jwt');
 var jwt = require('jsonwebtoken');
 
-// Used for session
+// Used for cookies/sessions
+var cookieParser = require('cookie-parser');
 var session = require('express-session');
+var morgan = require('morgan');
 
 
 /* ---------------- Google Identity (OAuth 2.0) Constants ------------------ */
@@ -32,11 +34,37 @@ const TOKEN_SECRET = 'be08ue1e1ne1d1';
 
 var port = process.env.PORT || 3000;
 
-/* ------------------------------ Middleware ------------------------------ */
+/* -------------------------------- Middleware -------------------------------- */
 var app = express();
 app.use(express.static('views'));
 
-/* Start of Google Middleware */
+// view engine setup
+app.set('views', path.join(__dirname, 'views'));
+app.set('view engine', 'ejs');
+
+// uncomment after placing your favicon in /public
+//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(logger('dev'));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(morgan('dev'));
+app.use(cookieParser());
+app.use(session({secret: 'fjakfjb21e1',
+                saveUninitialized: true,
+                resave: true  }));
+
+app.use(express.static(path.join(__dirname, 'public')));
+//app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
+//app.use('/javascripts',express.static(path.join(__dirname + 'node_modules/jquery/dist'))); // JQuery connection after npm install
+//app.use('/stylesheets',express.static(__dirname + 'node_modules/bootstrap/dist/css')); // CSS bootstrap connection after npm install
+
+app.use('/', index);
+app.use('/register', register);
+app.use('/search', search);
+app.use('/login', login);
+
+/* ------------------------ Start of Google Middleware --------------------------*/
+
 var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(
@@ -54,32 +82,10 @@ var url = oauth2Client.generateAuthUrl({
   scope: scopes // If you only need one scope you can pass it as string
 });
 
-/* End of Google Middleware */
+/* ------------------------- End of Google Middleware ----------------------  */
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'ejs');
 
-// Add cookie parsing functionality to our Express app
-app.use(require('cookie-parser')());
-
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
-app.use(logger('dev'));
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cookieParser());
-app.use(session({secret: 'nskqbqj221', resave: false, saveUninitialized:true }));
-app.use(express.static(path.join(__dirname, 'public')));
-//app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
-//app.use('/javascripts',express.static(path.join(__dirname + 'node_modules/jquery/dist'))); // JQuery connection after npm install
-//app.use('/stylesheets',express.static(__dirname + 'node_modules/bootstrap/dist/css')); // CSS bootstrap connection after npm install
-
-app.use('/', index);
-app.use('/register', register);
-app.use('/search', search);
-app.use('/login', login);
-
+/* ------------------------------- RESTFUL API -----------------------------  */
 /* This is currently giving errors with the OAuth, even though there isn't anything wrong.
 Will need to work on a new implementation of the below error handler.
 
@@ -96,10 +102,18 @@ app.use(function(err, req, res, next) {
   // set locals, only providing error in development
   res.locals.message = err.message;
   res.locals.error = req.app.get('env') === 'development' ? err : {};
-
   // render the error page
   res.status(err.status || 500);
   res.render('error');
+});
+
+app.use('/', function(req, res){
+  console.log('========================');
+  console.log('cookies')
+  console.log(req.cookies);
+  console.log('========================')
+  console.log('session')
+  console.log(req.session);
 });
 
 module.exports = app;
