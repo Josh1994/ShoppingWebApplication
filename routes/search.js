@@ -6,12 +6,17 @@ var pg = require('pg').native;
 
 //This will be where the manual searching is done.
 router.get('/', function(req, res, next) {
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
   console.log("Search router / database: "+process.env.DATABASE_URL);
   console.log("Search router / req.param: "+req.params.sometime);
   //console.log(req.query.paramName);
   console.log(req.query);
  // done();
-  res.render('search', 
+  res.render('search',
               { title: 'Search Page',
                 url: '/search'
                  });
@@ -38,10 +43,10 @@ router.get('/:tag', function(req, res, next) {
         searchResults = result.rows;
         console.log(searchResults);
         done();
-        res.render('search', 
+        res.render('search',
           { title: 'Search Page',
             tag: type,
-            itemArray:searchResults});  
+            itemArray:searchResults});
       }
     });
 

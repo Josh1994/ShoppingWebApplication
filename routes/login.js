@@ -4,6 +4,11 @@ var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f5
 var pg = require('pg').native;
 
 router.get('/', function(req, res, next) {
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
   res.render('login', { title: 'Login Page' });
 });
 
