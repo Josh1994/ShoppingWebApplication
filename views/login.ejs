@@ -31,27 +31,14 @@
     app.controller("ctrl", function($scope, $http, $window) {
       var url;
       var windowThatWasOpened;
-
       $http.get("url").then(function(response) {
         url = response.data;
       });
-
       $scope.login = function() {
         windowThatWasOpened = $window.open(url, "Please sign in with Google", "width=500px,height:700px");
       };
-
-      window.onmessage = function(e) {
-        console.log('Should be closing now.. ');
-        windowThatWasOpened.close();
-        var urlWithCode = e.data;
-        var idx = urlWithCode.lastIndexOf("code=");
-        var code = urlWithCode.substring(idx + 5).replace("#","");
-        console.log(code);
-        $http.get("tokens?code=" + code).then(function(response) {
-          console.log(response.data);
-        });
-      };
     });
   </script>
+
 
 </html>

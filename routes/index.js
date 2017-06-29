@@ -13,7 +13,6 @@ router.post('/', function(req, res){
 
   var username = req.body.user;
   var pwd = req.body.password;
-
   console.log(req.body.user);
   console.log(req.body.password);
 
@@ -40,6 +39,8 @@ router.post('/', function(req, res){
       }
       else {
         console.log(result);
+        req.session.user = user;
+        return res.status(200).send();
         done();
         res.render('search', { title: 'Search Page' });
 

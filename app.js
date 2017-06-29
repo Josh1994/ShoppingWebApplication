@@ -15,39 +15,39 @@ var search = require('./routes/search');
 var login = require('./routes/login');
 
 // Used for OAuth
-// var authenticator = require('./authenticator');
 var url = require('url');
-var config = require('./config');
 var google = require('googleapis');
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
+
+// Used for session
+var session = require('express-session');
+
 
 /* ---------------- Google Identity (OAuth 2.0) Constants ------------------ */
 
-// Not yet implemented.
-// const TOKEN_SECRET = 'xxx'
-
 const CLIENT_ID = "184838967778-thvc3v3r33phl17u998tr17fp9120bov.apps.googleusercontent.com";
 const CLIENT_SECRET = "EyqiXzYTcxwxoejP3z1CD3tK";
+const TOKEN_SECRET = 'be08ue1e1ne1d1';
 
-var port = process.env.PORT || 8080;
-
+var port = process.env.PORT || 3000;
 
 /* ------------------------------ Middleware ------------------------------ */
 var app = express();
 app.use(express.static('views'));
 
-
 /* Start of Google Middleware */
+var plus = google.plus('v1');
 var OAuth2 = google.auth.OAuth2;
 var oauth2Client = new OAuth2(
   CLIENT_ID,
   CLIENT_SECRET,
-  "http://localhost:8080/oauthcallback"
+  "http://localhost:3000/oauthcallback"
 );
 
 // Generate a url that asks permissions for Google+ and Google Calendar scopes
-var scopes = [
-  'https://www.googleapis.com/auth/gmail.modify'
-];
+var scopes = ['https://www.googleapis.com/auth/gmail.modify'];
+
 
 var url = oauth2Client.generateAuthUrl({
   access_type: 'offline', // 'online' (default) or 'offline' (gets refresh_token)
@@ -67,9 +67,9 @@ app.use(require('cookie-parser')());
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cookieParser());
-
+app.use(session({secret: 'nskqbqj221', resave: false, saveUninitialized:true }));
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
 //app.use('/javascripts',express.static(path.join(__dirname + 'node_modules/jquery/dist'))); // JQuery connection after npm install
@@ -89,7 +89,6 @@ app.use(function(req, res, next) {
   err.status = 404;
   next(err);
 });
-
 */
 
 // error handler
@@ -111,68 +110,25 @@ module.exports = app;
 //Get request that redirects to a specifically created Google address for oAuth
 app.get("/url", function(req, res) {
   console.log('Redirected to specifically created google address');
-  //res.cacheControl("no-cache");
   res.send(url);
 });
 
-app.get("/tokens", function(req, res) {
-
-/*
+app.get("/oauthcallback", function(req, res) {
   var code = req.query.code;
-    oauth2Client.getToken(code, function(error, tokens){
-      if(!error) {
-        console.log(tokens);
-        oauth2Client.setCredentials(tokens);
-      } else {
-        res.status(400).json();
-      }
-    });
-*/
-
-  var code = req.query.code;
-  console.log('HEY! inside /tokens');
-  console.log(code);
-
-  oauth2Client.getToken(code, function(err, tokens) {
-    if (err) {
-      console.log(err);
-      res.send(err);
-      return;
+  console.log("Code: " +code);
+  oauth2Client.getToken(code, function(err, tokens){
+    if(!err) {
+      console.log(tokens);
+      oauth2Client.setCredentials(tokens);
+    } else {
+      console.log(err)
+      res.status(400).json();
     }
-    console.log("YOZA!");
-    console.log(err);
-    console.log(tokens);
-    oauth2Client.setCredentials(tokens);
-    res.send(tokens);
+  });
+  plus.people.get({userId: 'me', auth: oauth2Client}, function(error, profile){
+    res.status(200).json({
+      status: 'success',
+      message: 'Logged in successfully'
+    });
   });
 });
-
-
-/* ------------------------------ OAuth - Twitter ------------------------------ */
-/* This is OAuth V1.0 implemetaton using Twitter. This is probably the easiest implemetation,
-Adrian said that using Twitter was fine. However, I think that using Google Identity might
-be more secure, as it uses (OAuth 2.0) and offers some additional features to help with completion requirement 2.0.
-Might have authentication using both Google and Twitter.
-
-
-// Code to connect to our database goes here. Will likely use MongoDB, a document database rather than a relational
-// database.
-// {}.connect();
-
-/* Take user to Twitter's login page. Used when the user clicks the 'Sign in using Twitter button'.
-   Will generate a request token.
-*/
-
-
-/* app.get('/auth/twitter', authenticator.redirectToTwitterLoginPage);
-
-// This is the callback url that the user is redirected to after signing in
-app.get(url.parse(config.oauth_callback).path, function(req, res) {
-	authenticator.authenticate(req, res, function(err) {
-		if (err) {
-			res.redirect('/login');
-		} else {
-			res.redirect('/');
-		}
-	});
-}); */

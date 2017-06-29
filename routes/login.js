@@ -37,6 +37,7 @@ router.post('/', function(req, res, done){
                                 error: error });
         } else {
           done();
+          req.session.user = user;
           res.render('login', { title: 'Login Page' });
         }
       });
