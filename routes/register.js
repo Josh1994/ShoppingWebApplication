@@ -8,12 +8,14 @@ router.get('/', function(req, res, next) {
   res.render('register', { title: 'Register Page' });
 });
 
-router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Home Page' });
-});
 
 //POST request for register
 router.post('/', function(req, res, done){
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
   console.log(req.body);
   var email = req.body.email;
   var password = req.body.psw;
