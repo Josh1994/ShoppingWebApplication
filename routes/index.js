@@ -45,10 +45,10 @@ router.post('/', function(req, res){
       }
       else {
         console.log(result);
-        req.session.user = user;
+        //req.session.user = user;
+        res.render('search', { title: 'Search Page' });
         return res.status(200).send();
         done();
-        res.render('search', { title: 'Search Page' });
 
         /* Not currently working, giving error : Cannot read property 'email' of undefined
         res.render('/', { title: 'Main Page',
