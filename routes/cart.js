@@ -11,7 +11,26 @@ router.get('/', function(req, res, next) {
 
 //AJAX response for when user press the Add to Cart button
 router.post('/:item', function(req, res, next){
+  console.log("Cart req.param: "+req.body.itemBought); // Returns value of itemBought.
+  var userId = 88; //Will be changed once cookie is implemented TODO
+  var itemBought = req.body.itemBought;
 
+  pg.connect(database, function(err, client, done){
+    if(err){
+      throw err;
+    }
+    client.query("insert into useritems (users, itemsincart) values("+userId+",'"+itemBought+"');", function(err, result){
+      if(err){ //Empty results
+       res.status(500).send("Product cannot be added to the cart");
+       done();
+      }
+      else{
+        done();
+        res.send( 
+          { message: 'Item added to cart' });
+      }
+    });
+  });
 });
 
 module.exports = router;

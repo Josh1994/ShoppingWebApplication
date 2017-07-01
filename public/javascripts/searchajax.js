@@ -26,14 +26,14 @@ $(document).ready(function() {
             var json = data;
           //  console.log(data);
             console.log("GET success response "+json.searchArray[0].name);
-            $('#searchResult').empty();
+            $('#products').empty();
             if(json.searchArray.length > 0){
-              $('#searchResult').append(
+              $('#products').append(
                 '<div class="item  col-xs-4 col-lg-4"> \
                       <div class="thumbnail">\
                           <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />\
                           <div class="caption">\
-                              <h4 class="group inner list-group-item-heading">\
+                              <h4 id="productName" class="group inner list-group-item-heading">\
                                    '+json.searchArray[0].name+'</h4>\
                               <p class="group inner list-group-item-text">\
                                    '+json.searchArray[0].description+'</p>\
@@ -60,25 +60,24 @@ $(document).ready(function() {
 
     });
 
-    $('#addCart').click(function(event){
-      event.preventDefault();
-      var name = $('div.caption.group inner list-group-item-heading').text();
+    $('#products').on('click',"#addCart",function(){
+      //var name = $.trim(document.getElementById("productName").innerHTML);
+      var name = $.trim($(this).closest(".item").find(".caption h4").html());
       console.log(name);
-        // $.ajax({
-        //   method: 'POST',
-        //   url: '/cart/item',
-        //   data: ({
-        //   'searchAnswer': name
-        //   }),
-        //   contentType: "application/json",
-        //   dataType: "json",
-        //   success:function(data){
-
-        //   },
-        //   error:function(xhr, status, error, data){
-        //     var json = data;
-        //     console.log("GET error response "+xhr.responseText);
-        //   }
-        // });
+      $.ajax({
+        method: 'POST',
+        url: '/cart/'+name,
+        data: 
+          JSON.stringify({ "itemBought": name }),
+        contentType: "application/json",
+        dataType: "json",
+        success:function(data){
+        console.log("GET success response "+data.message);
+        },
+        error:function(xhr, status, error, data){
+          var json = data;
+          console.log("GET error response "+xhr.responseText);
+        }
+      });
     });
 });

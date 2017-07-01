@@ -33,7 +33,7 @@ router.get('/result', function(req, res, next) {
         console.log(searchResults);
         done();
         res.send( 
-          { title: 'Search Page',
+          {
             searchArray:searchResults});  
         // res.send( {result: [
         //   { title: 'Search Page',
