@@ -8,6 +8,7 @@
     <ul class="nav nav-tabs">
       <li class="active"><a href="#cart" data-toggle="tab" aria-expanded="true">Cart</a></li>
       <li class="" id="history"><a href="#bought" data-toggle="tab" aria-expanded="false">History</a></li>
+      <li class="" id="admin"><a href="#admini" data-toggle="tab" aria-expanded="false">Admin(Will be removed soon)</a></li>      
     </ul>
     <div id="myTabContent" class="tab-content">
       <br>
@@ -39,8 +40,20 @@
         <% } %>
       </div>
       <div class="tab-pane fade" id="bought">
-        <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
       </div>
+      <div class="tab-pane fade" id="admini">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon fa fa-search"></span>
+            <input class="form-control" name="searchText" type="text">
+            <span class="input-group-btn">
+              <button id="searchButton" class="btn btn-default" type="button">Search</button>
+            </span>
+          </div>
+        </div> 
+        <div id="logs" class="row list-group">
+        </div>       
+      </div>      
       </div>
     </div>
   </body>

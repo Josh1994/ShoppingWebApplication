@@ -30,7 +30,61 @@ router.get('/', function(req, res, next) {
   });
 });
 
-//AJAX response for when user press the Buy button
+router.get('/admin', function(req, res, next) {
+  var userId = req.query.userId; // Change when cookies implemented TODO
+  var userItems = [];
+  console.log("Admin search userid"+userId);
+  pg.connect(database, function(err, client, done){
+    if(err){
+      throw err;
+    }
+    client.query(" select*from userhistory where users="+userId+";", function(err, result){
+      
+      if(err){ //Empty results
+       res.status(500).send("Cart page cannot be loaded");
+       done();
+      }
+      else{
+        done();
+        userItems = result.rows;
+        console.log(userItems);
+        res.send(
+              { message: 'Displaying history for requested user',
+                logs: userItems
+                 });
+      }
+    });
+  });
+});
+
+router.post('/removeHistory', function(req, res, next) {
+  console.log("History req.param: "+req.body.itemBought+req.body.description+req.body.price+req.body.id); // Returns value of itemBought.
+  var userId = 88; //Will be changed once cookie is implemented TODO
+  var name = req.body.itemBought;
+  var description = req.body.description;
+  var price = req.body.price;
+  var id = req.body.id;
+
+  pg.connect(database, function(err, client, done){
+    if(err){
+      throw err;
+    }
+    client.query("delete from userhistory where name='"+name+"' AND id="+id+";", function(err, result){
+      if(err){ //Empty results
+       res.status(500).send("Product cannot be removed from history" +err);
+       done();
+      }
+      else{
+        done();
+        res.send( 
+          { message: 'Item removed in history' });
+      }
+    });
+
+  });
+});
+
+//AJAX response for when user press the History tab
 router.get('/history', function(req, res, next){
   var userId = 88; //Will be changed once cookie is implemented TODO
   var userHistory = [];
