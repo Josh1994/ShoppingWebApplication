@@ -31,6 +31,35 @@ router.get('/', function(req, res, next) {
 });
 
 //AJAX response for when user press the Buy button
+router.get('/history', function(req, res, next){
+  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userHistory = [];
+
+  pg.connect(database, function(err, client, done){
+    if(err){
+      throw err;
+    }
+
+    client.query("select*from userhistory where users="+userId+";", function(err, result){
+      if(err){ //Empty results
+       res.status(500).send("Product cannot be added to the cart" +err);
+       done();
+      }
+      else{
+
+        userHistory = result.rows;
+        console.log(userHistory);
+        done();
+        res.send( 
+          { message: 'Item added to history',
+            history: userHistory });
+      }
+    });
+
+  });
+});
+
+//AJAX response for when user press the Buy button
 router.post('/buy', function(req, res, next){
   console.log("Cart req.param: "+req.body.itemBought+req.body.description+req.body.price+req.body.id); // Returns value of itemBought.
   var userId = 88; //Will be changed once cookie is implemented TODO
