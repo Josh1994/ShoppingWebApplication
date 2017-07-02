@@ -63,12 +63,14 @@ $(document).ready(function() {
     $('#products').on('click',"#addCart",function(){
       //var name = $.trim(document.getElementById("productName").innerHTML);
       var name = $.trim($(this).closest(".item").find(".caption h4").html());
+     // var desc = $.trim($(this).closest(".item").find(".caption p").html());
+     // var price = $.trim($(this).closest(".item").find(".row p").html());
       console.log(name);
       $.ajax({
         method: 'POST',
         url: '/cart/'+name,
         data: 
-          JSON.stringify({ "itemBought": name }),
+          JSON.stringify({ "itemBought": name,  }),
         contentType: "application/json",
         dataType: "json",
         success:function(data){

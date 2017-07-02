@@ -2,15 +2,41 @@
 <html>
   <head>
   <% include layout.ejs -%>
+  <script src="/javascripts/cartajax.js"></script>
   </head>
   <body>
     <ul class="nav nav-tabs">
       <li class="active"><a href="#cart" data-toggle="tab" aria-expanded="true">Cart</a></li>
-      <li class=""><a href="#bought" data-toggle="tab" aria-expanded="false">History</a></li>
+      <li class="" id="history"><a href="#bought" data-toggle="tab" aria-expanded="false">History</a></li>
     </ul>
     <div id="myTabContent" class="tab-content">
+      <br>
       <div class="tab-pane fade active in" id="cart">
-        <p>Raw denim you probably haven't heard of them jean shorts Austin. Nesciunt tofu stumptown aliqua, retro synth master cleanse. Mustache cliche tempor, williamsburg carles vegan helvetica. Reprehenderit butcher retro keffiyeh dreamcatcher synth. Cosby sweater eu banh mi, qui irure terry richardson ex squid. Aliquip placeat salvia cillum iphone. Seitan aliquip quis cardigan american apparel, butcher voluptate nisi qui.</p>
+        <% for(var i=0; i<userCart.length; i++) {%>
+              <div class="item  col-xs-4 col-lg-4">
+                  <div class="thumbnail">
+                      <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                      <div class="caption">
+                          <h4 id="productName" class="group inner list-group-item-heading">
+                               <%= userCart[i].name %></h4>
+                          <p class="group inner list-group-item-text">
+                               <%= userCart[i].description %> </p>
+                          <div class="row">
+                              <div class="col-xs-12 col-md-6">
+                                  <p class="lead" val=<%= userCart[i].id %> >
+                                     <%= userCart[i].price %> </p>
+                              </div>
+                              <div class="col-xs-12 col-md-6">
+                                  <a class="btn btn-success" href="#" id="buyItem">Buy</a>
+                              </div>
+                              <div class="col-xs-12 col-md-6">
+                                  <a class="btn btn-success" href="#" id="removeItem">Remove</a>
+                              </div>       
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        <% } %>
       </div>
       <div class="tab-pane fade" id="bought">
         <p>Food truck fixie locavore, accusamus mcsweeney's marfa nulla single-origin coffee squid. Exercitation +1 labore velit, blog sartorial PBR leggings next level wes anderson artisan four loko farm-to-table craft beer twee. Qui photo booth letterpress, commodo enim craft beer mlkshk aliquip jean shorts ullamco ad vinyl cillum PBR. Homo nostrud organic, assumenda labore aesthetic magna delectus mollit.</p>
