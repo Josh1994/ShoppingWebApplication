@@ -45,7 +45,7 @@ router.post('/', function(req, res){
       else {
         console.log(result);
         //req.session.user = user;
-        res.render('search', { title: 'Search Page', cookie:req.cookies.user_id });
+        res.render('search', { title: 'Search', cookie:req.cookies.user_id });
         return res.status(200).send();
         done();
         /* Not currently working, giving error : Cannot read property 'email' of undefined

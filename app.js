@@ -10,6 +10,7 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
+var sslRedirect = require('heroku-ssl-redirect');
 
 var index = require('./routes/index');
 var register = require('./routes/register');
@@ -94,6 +95,8 @@ var url = oauth2Client.generateAuthUrl({
 Will need to work on a new implementation of the below error handler. */
 
 
+app.use(sslRedirect());
+
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development
@@ -127,15 +130,21 @@ app.get("/oauthcallback", function(req, res) {
     }
   });
   plus.people.get({userId: 'me', auth: oauth2Client}, function(error, profile){
+    console.log("Google Authentication Successful.");
+    res.render('searchLoggedIn', { title: 'Welcome to Hat Shop', cookie:req.cookies.user_id });
+    /*
     res.status(200).json({
       status: 'success',
       message: 'Logged in successfully'
-
+      res.render('cart', { title: 'Cart', cookie:req.cookies.user_id });
     });
+    */
   });
 });
 
-/* Implements Adrian's code mentioned in the email. Forces communication with
+
+
+/* Implements Adrian's code link  mentioned in the email. Forces communication with
 the web server to HTTPS only */
 app.use(function(req, res, next){
   if (req.headers['x-forwarded-proto'] !== 'https') {
