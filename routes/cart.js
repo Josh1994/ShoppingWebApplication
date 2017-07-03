@@ -41,7 +41,7 @@ router.get('/', function(req, res, next) {
       }
     });
   });
-  
+
   res.render('cart',
     { title: 'Cart Page',
       cookie:req.cookies.user_id,              
