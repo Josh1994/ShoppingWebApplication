@@ -50,7 +50,6 @@ router.post('/', function(req, res){
         res.cookie('user_id',id, {maxAge : 99999999 });
         console.log(req.cookies.user_id);
         res.render('search', { title: 'Search Page', cookie:req.cookies.user_id });
-
         /* Not currently working, giving error : Cannot read property 'email' of undefined
         res.render('/', { title: 'Main Page',
                               user: result[0].email });

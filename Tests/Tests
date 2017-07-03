@@ -1,0 +1,32 @@
+//Header Tests
+
+curl -I https://hatshop.herokuapp.com/login
+curl -I https://hatshop.herokuapp.com/search/brand?e=Nike
+curl -I https://hatshop.herokuapp.com/search/brand?e=Adidas
+curl -I https://hatshop.herokuapp.com/search/brand?e=Bailey
+curl -I https://hatshop.herokuapp.com/search/brand?e=New%20Era
+curl -I https://hatshop.herokuapp.com/search/style?e=Fedora
+curl -I https://hatshop.herokuapp.com/search/style?e=Flat%20Cap
+curl -I https://hatshop.herokuapp.com/search/style?e=Sunhat
+curl -I https://hatshop.herokuapp.com/search/style?e=Top%20Hat
+curl -I https://hatshop.herokuapp.com/search/location?e=New-Zealand
+curl -I https://hatshop.herokuapp.com/search/location?e=USA
+curl -I https://hatshop.herokuapp.com/search/location?e=Canada
+curl -I https://hatshop.herokuapp.com/search/location?e=France
+curl -I https://hatshop.herokuapp.com/cart
+curl -I https://hatshop.herokuapp.com/register
+
+*------- Register ------- *
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: 38912c65-c0f6-39ea-13a2-cb8b7d20bbbf" -d '{
+    "email": "test@hotmail.com",
+    "password": "qwerty",
+    "repeat": "qwerty"
+}' "http://localhost:3000/register"
+
+*------ Login ------- *
+
+curl -X POST -H "Content-Type: application/json" -H "Cache-Control: no-cache" -H "Postman-Token: c47b3a15-e914-ae92-2edb-342179120013" -d '{
+    "username": "test@hotmail.com",
+    "pwd": "qwerty"
+}' "http://localhost:3000/index"

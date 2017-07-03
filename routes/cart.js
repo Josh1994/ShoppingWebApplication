@@ -7,6 +7,13 @@ var fs = require('fs');
 
 router.get('/', function(req, res, next) {
   var userId = req.cookies.user_id; // Change when cookies implemented TODO
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+
+  });
+  res.set('etag', 'A good etag');
   var userItems = [];
   var userRole="";
 
@@ -91,6 +98,14 @@ router.get('/write', function(req, res, next) {
 
 router.get('/admin', function(req, res, next) {
   var pickId = req.query.userId;
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+
+  });
+  res.set('etag', 'A good etag');
+
   var userItems = [];
   console.log("Admin search userid"+pickId);
   pg.connect(database, function(err, client, done){

@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html>
+<body>
+  <div class="top-row">
+    <div class="shop-header">
+      <h1>Hat Shop</h1>
+    </div>
+  </div>
+  <!-- NavBar -->
+  <div class="bottom-row">
+  </div>
+</body>
+
+<title><%= title %></title>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<link rel='stylesheet' href='/stylesheets/style.css' />
+<link rel="stylesheet" href="/stylesheets/font-awesome.min.css">
+<link rel="stylesheet" href="https://bootswatch.com/journal/bootstrap.css">
+<link rel="stylesheet" href="https://bootswatch.com/journal/bootstrap.min.css">
+
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="/">Home</a>
+    </div>
+
+    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1" aria-expanded="false" style="height: 1px;">
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Brand <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/search/brand?e=Nike">Nike</a></li>
+            <li><a href="/search/brand?e=Adidas">Adidas</a></li>
+            <li><a href="/search/brand?e=Bailey">Bailey</a></li>
+            <li><a href="/search/brand?e=New%20Era">New Era</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Style <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/search/style?e=Fedora">Fedora</a></li>
+            <li><a href="/search/style?e=Flat%20Cap">Flat Cap</a></li>
+            <li><a href="/search/style?e=Sunhat">Sunhat</a></li>
+            <li><a href="/search/style?e=Top%20Hat">Top Hat</a></li>
+          </ul>
+        </li>
+
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Location <span class="caret"></span></a>
+          <ul class="dropdown-menu" role="menu">
+            <li><a href="/search/location?e=New-Zealand">New Zealand</a></li>
+            <li><a href="/search/location?e=USA">USA</a></li>
+            <li><a href="/search/location?e=Canada">Canada</a></li>
+            <li><a href="/search/location?e=France">France</a></li>
+          </ul>
+        </li>
+      </ul>
+<!--       <form class="navbar-form navbar-left" role="search">
+        <div class="form-group">
+          <input class="form-control" placeholder="Search" type="text">
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+      </form> -->
+      <ul class="nav navbar-nav navbar-right">
+      <!-- Check if a user is logged in and redirect to the cart page otherwise go home page -->
+        <li><a href="/cart"> <span class="glyphicon glyphicon-shopping-cart"></span> Cart </a> </li>
+        <li><a href="/logout"> Logout </a> </li>
+          </ul>
+        </ul>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<head>
+<script src="/javascripts/searchajax.js"></script>
+</head>
+<body>
+  <div class="quickmenu">
+    <% if(typeof tag != "undefined"){ %>
+      <ul class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li><a href="/search">Search </a></li>
+        <li class="active"><%= tag %> </li>
+      </ul>
+    <% } else{ %>
+      <ul class="breadcrumb">
+        <li><a href="/">Home</a></li>
+        <li class="active">Search </a></li>
+      </ul>
+    <% } %>
+  </div>
+  <% if(typeof itemArray != "undefined"){ %>
+    <div class="shopping-list">
+        <div class="well well-sm">
+            <strong>View</strong>
+            <div class="btn-group">
+                <a href="#" id="list" class="btn btn-default btn-sm"><span class="glyphicon glyphicon-th-list">
+                </span>List</a>
+                <a href="#" id="grid" class="btn btn-default btn-sm"><span
+                    class="glyphicon glyphicon-th"></span>Grid</a>
+            </div>
+        </div>
+        <div id="products" class="row list-group">
+          <% for(var i=0; i<itemArray.length; i++) {%>
+                <div class="item  col-xs-4 col-lg-4">
+                    <div class="thumbnail">
+                        <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                        <div class="caption">
+                            <h4 id="productName" class="group inner list-group-item-heading">
+                                 <%= itemArray[i].name %></h4>
+                            <p class="group inner list-group-item-text">
+                                 <%= itemArray[i].description %> </p>
+                            <div class="row">
+                                <div class="col-xs-12 col-md-6">
+                                    <p class="lead">
+                                       $<%= itemArray[i].price %> </p>
+                                </div>
+                                <div class="col-xs-12 col-md-6">
+                                    <a class="btn btn-success" href="#" id="addCart">Add to cart</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          <% } %>
+        </div>
+    </div>
+  <% } else{ %>
+    <div class="form-group">
+      <div class="input-group">
+        <span class="input-group-addon fa fa-search"></span>
+        <input class="form-control" name="searchText" type="text">
+        <span class="input-group-btn">
+          <button id="searchButton" class="btn btn-default" type="button">Search</button>
+        </span>
+      </div>
+    </div>
+      <div id="products" class="row list-group">
+      </div>
+  <% } %>
+</body>
+
+
+</html>
