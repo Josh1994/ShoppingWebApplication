@@ -3,13 +3,18 @@ var router = express.Router();
 var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f536cc50c9aea6610ce4002d3cea@ec2-23-21-169-238.compute-1.amazonaws.com:5432/d6ns5drql89lm1";
 var pg = require('pg').native;
 
+
+// const results
+// req.session.user = resuts[0]
+
+
 router.get('/', function(req, res, next) {
   res.set({
     'Cache-Control': 'public',
     'Pragma': 'public',
     'Expires': '3600'
-
   });
+  
   res.set('etag', 'A good etag');
   res.render('login', { title: 'Login Page' });
 });
@@ -39,9 +44,9 @@ router.post('/', function(req, res, done){
 
       ,function(error, result){
         if(error){
-          done(); 
+          done();
           res.render('error', { message: 'User Registration error',
-                                error: error });      
+                                error: error });
         } else {
           done();
           req.session.user = user;
@@ -50,7 +55,7 @@ router.post('/', function(req, res, done){
       });
     });
   }
-  
+
 });
 
 module.exports = router;
