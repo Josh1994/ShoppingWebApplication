@@ -6,9 +6,9 @@ var fs = require('fs');
 
 
 router.get('/', function(req, res, next) {
-  var userId = 88; // Change when cookies implemented TODO
+  var userId = req.cookies.user_id; // Change when cookies implemented TODO
   var userItems = [];
-
+  var userRole="";
 
   pg.connect(database, function(err, client, done){
     if(err){
@@ -24,14 +24,30 @@ router.get('/', function(req, res, next) {
         done();
         userItems = result.rows;
         console.log(userItems);
-        res.render('cart',
-              { title: 'Cart Page',
-                cookie:req.cookies.user_id,              
-                userCart: userItems
-                 });
+
+      }
+    });
+
+    client.query("select*from users where id="+userId, function(err, result){
+
+      if(err){ //Empty results
+       res.status(500).send("Id does not exist");
+       done();
+      }
+      else{
+        done();
+        userRole = result.rows[0].userrole;
+        console.log(userRole);
       }
     });
   });
+  
+  res.render('cart',
+    { title: 'Cart Page',
+      cookie:req.cookies.user_id,              
+      userCart: userItems,
+      permission: userRole
+       });
 });
 
 router.get('/write', function(req, res, next) {
@@ -58,11 +74,19 @@ router.get('/write', function(req, res, next) {
           stream.write(result.rows[i].name+" "+result.rows[i].price+" "+result.rows[i].description+"\n");
         }
         stream.end();
-        res.send(
-              { message: 'File written'
-                 });
       }
     });
+    client.query("delete from userhistory;", function(err){
+      
+      if(err){ //Empty results
+       res.status(500).send("All history for user cannot be deleted");
+       done();
+      }
+    });
+
+    res.send(
+      { message: 'File written / History deleted'
+         });
   });
 });
 
@@ -95,7 +119,7 @@ router.get('/admin', function(req, res, next) {
 
 router.post('/removeHistory', function(req, res, next) {
   console.log("History req.param: "+req.body.itemBought+req.body.description+req.body.price+req.body.id); // Returns value of itemBought.
-  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userId = req.cookies.user_id; //Will be changed once cookie is implemented TODO
   var name = req.body.itemBought;
   var description = req.body.description;
   var price = req.body.price;
@@ -122,7 +146,7 @@ router.post('/removeHistory', function(req, res, next) {
 
 //AJAX response for when user press the History tab
 router.get('/history', function(req, res, next){
-  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userId = req.cookies.user_id; //Will be changed once cookie is implemented TODO
   var userHistory = [];
 
   pg.connect(database, function(err, client, done){
@@ -152,7 +176,7 @@ router.get('/history', function(req, res, next){
 //AJAX response for when user press the Buy button
 router.post('/buy', function(req, res, next){
   console.log("Cart req.param: "+req.body.itemBought+req.body.description+req.body.price+req.body.id); // Returns value of itemBought.
-  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userId = req.cookies.user_id; //Will be changed once cookie is implemented TODO
   var name = req.body.itemBought;
   var description = req.body.description;
   var price = req.body.price;
@@ -188,7 +212,7 @@ router.post('/buy', function(req, res, next){
 //AJAX response for when user press the Remove button
 router.post('/remove', function(req, res, next){
   console.log("Cart req.param: "+req.body.itemBought+req.body.description+req.body.price+req.body.id); // Returns value of itemBought.
-  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userId = req.cookies.user_id; //Will be changed once cookie is implemented TODO
   var name = req.body.itemBought;
   var description = req.body.description;
   var price = req.body.price;
@@ -215,7 +239,7 @@ router.post('/remove', function(req, res, next){
 //AJAX response for when user press the Add to Cart button
 router.post('/:item', function(req, res, next){
   console.log("Cart req.param: "+req.body.itemBought); // Returns value of itemBought.
-  var userId = 88; //Will be changed once cookie is implemented TODO
+  var userId = req.cookies.user_id; //Will be changed once cookie is implemented TODO
   var itemBought = req.body.itemBought;
 
   pg.connect(database, function(err, client, done){
