@@ -1,1 +1,15 @@
 curl -I https://hatshop.herokuapp.com/login
+curl -I https://hatshop.herokuapp.com/search/brand?e=Nike
+curl -I https://hatshop.herokuapp.com/search/brand?e=Adidas
+curl -I https://hatshop.herokuapp.com/search/brand?e=Bailey
+curl -I https://hatshop.herokuapp.com/search/brand?e=New%20Era
+curl -I https://hatshop.herokuapp.com/search/style?e=Fedora
+curl -I https://hatshop.herokuapp.com/search/style?e=Flat%20Cap
+curl -I https://hatshop.herokuapp.com/search/style?e=Sunhat
+curl -I https://hatshop.herokuapp.com/search/style?e=Top%20Hat
+curl -I https://hatshop.herokuapp.com/search/location?e=New-Zealand
+curl -I https://hatshop.herokuapp.com/search/location?e=USA
+curl -I https://hatshop.herokuapp.com/search/location?e=Canada
+curl -I https://hatshop.herokuapp.com/search/location?e=France
+curl -I https://hatshop.herokuapp.com/cart
+curl -I https://hatshop.herokuapp.com/register
