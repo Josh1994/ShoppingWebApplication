@@ -18,8 +18,10 @@ var cart = require('./routes/cart');
 // Used for OAuth
 var url = require('url');
 var google = require('googleapis');
-var expressJWT = require('express-jwt');
-var jwt = require('jsonwebtoken');
+
+//HTTPS Confih
+var https = require('https');
+
 
 // Used for cookies/sessions
 var cookieParser = require('cookie-parser');
@@ -109,6 +111,7 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
+/*
 app.use('/', function(req, res){
   console.log('========================');
   console.log('cookies')
@@ -117,7 +120,7 @@ app.use('/', function(req, res){
   console.log('session')
   console.log(req.session);
 });
-
+*/
 
 app.use(function(req, res, next){
   if (req.headers['x-forwarded-proto'] !== 'https') {
@@ -130,10 +133,7 @@ app.use(function(req, res, next){
   }
 });
 
-
-
 module.exports = app;
-
 
 /* ------------------------------ OAuth - Google ------------------------------ */
 

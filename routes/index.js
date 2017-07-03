@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
     'Expires': '3600'
   });
   res.set('etag', 'A good etag');
-  res.render('index', { title: 'Main Page' });
+  res.render('index', { title: 'Main Page' , cookie:req.cookies.user_id});
 
 });
 
@@ -45,7 +45,7 @@ router.post('/', function(req, res){
       else {
         console.log(result);
         //req.session.user = user;
-        res.render('search', { title: 'Search Page' });
+        res.render('search', { title: 'Search Page', cookie:req.cookies.user_id });
         return res.status(200).send();
         done();
         /* Not currently working, giving error : Cannot read property 'email' of undefined
