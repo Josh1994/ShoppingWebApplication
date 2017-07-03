@@ -4,12 +4,6 @@ var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f5
 var pg = require('pg').native;
 
 router.get('/', function(req, res, next) {
-  res.set({
-    'Cache-Control': 'public',
-    'Pragma': 'public',
-    'Expires': '3600'
-  });
-  res.set('etag', 'A good etag');
   console.log("Search router / database: "+process.env.DATABASE_URL);
   console.log("Search router / req.param: "+req.params.sometime);
   //console.log(req.query.paramName);
@@ -58,12 +52,6 @@ router.get('/result', function(req, res, next) {
 
 //Tag can either be a brand , style or location for now. Will be changed later given the time
 router.get('/:tag', function(req, res, next) {
-  res.set({
-    'Cache-Control': 'public',
-    'Pragma': 'public',
-    'Expires': '3600'
-  });
-  res.set('etag', 'A good etag');
   var tags = req.params.tag;
   var type= req.query.e;
   console.log("Search router get tags: "+tags);
@@ -80,12 +68,6 @@ router.get('/:tag', function(req, res, next) {
       }
       else{
         //TODO
-        res.set({
-          'Cache-Control': 'public',
-          'Pragma': 'public',
-          'Expires': '3600'
-        });
-        res.set('etag', 'A good etag');
         searchResults = result.rows;
         console.log(searchResults);
         done();
