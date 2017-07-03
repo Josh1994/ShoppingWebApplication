@@ -5,13 +5,13 @@ var pg = require('pg').native;
 
 
 router.get('/', function(req, res, next) {
-  res.set({
-    'Cache-Control': 'public',
-    'Pragma': 'public',
-    'Expires': '3600'
-  });
+  // res.set({
+  //   'Cache-Control': 'public',
+  //   'Pragma': 'public',
+  //   'Expires': '3600'
+  // });
 
-  res.set('etag', 'A good etag');
+  // res.set('etag', 'A good etag');
   res.render('login', { title: 'Login Page' });
 });
 
