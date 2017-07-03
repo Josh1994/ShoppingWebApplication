@@ -91,15 +91,8 @@ var url = oauth2Client.generateAuthUrl({
 
 /* ------------------------------- RESTFUL API -----------------------------  */
 /* This is currently giving errors with the OAuth, even though there isn't anything wrong.
-Will need to work on a new implementation of the below error handler.
+Will need to work on a new implementation of the below error handler. */
 
-// catch 404 and forward to error handler
-app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
-});
-*/
 
 // error handler
 app.use(function(err, req, res, next) {
@@ -163,4 +156,10 @@ app.use('/', function(req, res){
   console.log('========================')
   console.log('session')
   console.log(req.session);
+});
+
+app.use(function(req, res, next) {
+  var err = new Error('Not Found');
+  err.status = 404;
+  next(err);
 });
