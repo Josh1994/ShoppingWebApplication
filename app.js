@@ -8,8 +8,6 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-var https = require('https');
-var http = require('http');
 
 var index = require('./routes/index');
 var register = require('./routes/register');
@@ -20,6 +18,10 @@ var cart = require('./routes/cart');
 // Used for OAuth
 var url = require('url');
 var google = require('googleapis');
+
+//HTTPS Confih
+var https = require('https');
+
 
 // Used for cookies/sessions
 var cookieParser = require('cookie-parser');
@@ -131,7 +133,7 @@ app.use(function(req, res, next){
   }
 });
 
-module.exports = https;
+module.exports = app;
 
 /* ------------------------------ OAuth - Google ------------------------------ */
 
