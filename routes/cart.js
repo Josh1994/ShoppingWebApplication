@@ -38,16 +38,15 @@ router.get('/', function(req, res, next) {
         done();
         userRole = result.rows[0].userrole;
         console.log(userRole);
+        res.render('cart',
+          { title: 'Cart Page',
+            cookie:req.cookies.user_id,              
+            userCart: userItems,
+            permission: userRole
+             });        
       }
     });
   });
-
-  res.render('cart',
-    { title: 'Cart Page',
-      cookie:req.cookies.user_id,              
-      userCart: userItems,
-      permission: userRole
-       });
 });
 
 router.get('/write', function(req, res, next) {
