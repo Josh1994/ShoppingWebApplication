@@ -39,9 +39,9 @@ router.post('/', function(req, res, done){
 
       ,function(error, result){
         if(error){
-          done();
+          done(); 
           res.render('error', { message: 'User Registration error',
-                                error: error });
+                                error: error });      
         } else {
           done();
           req.session.user = user;
@@ -50,7 +50,7 @@ router.post('/', function(req, res, done){
       });
     });
   }
-
+  
 });
 
 module.exports = router;

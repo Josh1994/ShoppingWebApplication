@@ -22,6 +22,8 @@
     "heroku-ssl-redirect": "0.0.3",
     "jsonwebtoken": "^7.0.1",
     "morgan": "~1.8.1",
+    "pg": "^6.4.0",
+    "pg-native": "^1.10.1",
     "oauth": "^0.9.14",
     "serve-favicon": "~2.4.2"
   },

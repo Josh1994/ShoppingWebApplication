@@ -13,6 +13,7 @@ var index = require('./routes/index');
 var register = require('./routes/register');
 var search = require('./routes/search');
 var login = require('./routes/login');
+var cart = require('./routes/cart');
 
 // Used for OAuth
 var url = require('url');
@@ -62,9 +63,8 @@ app.use('/', index);
 app.use('/register', register);
 app.use('/search', search);
 app.use('/login', login);
+app.use('/cart', cart);
 
-
-//middleware for etag headers 
 /* ------------------------ Start of Google Middleware --------------------------*/
 
 var plus = google.plus('v1');
