@@ -4,7 +4,17 @@ var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f5
 var pg = require('pg').native;
 
 router.get('/', function(req, res, next) {
-  res.render('search', 
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
+  console.log("Search router / database: "+process.env.DATABASE_URL);
+  console.log("Search router / req.param: "+req.params.sometime);
+  //console.log(req.query.paramName);
+  console.log(req.query);
+ // done();
+  res.render('search',
               { title: 'Search Page',
                 url: '/search'
                  });
@@ -65,10 +75,10 @@ router.get('/:tag', function(req, res, next) {
         searchResults = result.rows;
         console.log(searchResults);
         done();
-        res.render('search', 
+        res.render('search',
           { title: 'Search Page',
             tag: type,
-            itemArray:searchResults});  
+            itemArray:searchResults});
       }
     });
 

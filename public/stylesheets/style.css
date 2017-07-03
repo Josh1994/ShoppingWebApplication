@@ -119,12 +119,50 @@ body, html {
 
 .btn.btn-signin {
     /*background-color: #4d90fe; */
-    background-color: rgb(104, 145, 162);
-    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
-    padding: 0px;
+    background-color: rgb(92, 184, 92);
+    background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+    padding: 10px;
     font-weight: 700;
     font-size: 14px;
     height: 36px;
+    width: 270px;
+    -moz-border-radius: 3px;
+    -webkit-border-radius: 3px;
+    border-radius: 3px;
+    border: none;
+    -o-transition: all 0.218s;
+    -moz-transition: all 0.218s;
+    -webkit-transition: all 0.218s;
+    transition: all 0.218s;
+}
+
+.btn.btn-cancel {
+  background-color: rgb(222, 14, 21);
+  background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));
+  padding: 10px;
+  font-weight: 700;
+  font-size: 14px;
+  height: 36px;
+  width: 270px;
+  -moz-border-radius: 3px;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  border: none;
+  -o-transition: all 0.218s;
+  -moz-transition: all 0.218s;
+  -webkit-transition: all 0.218s;
+  transition: all 0.218s;
+}
+
+.btn.btn-signin-google {
+    /*background-color: #4d90fe; */
+    background-color: rgb(236, 43, 43);
+    /* background-color: linear-gradient(rgb(104, 145, 162), rgb(12, 97, 33));*/
+    padding: 10px;
+    font-weight: 700;
+    font-size: 14px;
+    height: 36px;
+    width: 270px;
     -moz-border-radius: 3px;
     -webkit-border-radius: 3px;
     border-radius: 3px;

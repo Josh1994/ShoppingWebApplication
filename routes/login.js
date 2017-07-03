@@ -4,6 +4,11 @@ var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f5
 var pg = require('pg').native;
 
 router.get('/', function(req, res, next) {
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
   res.render('login', { title: 'Login Page' });
 });
 
@@ -26,7 +31,7 @@ router.post('/', function(req, res, done){
     console.log("Password and repeat match")
     pg.connect(database, function(err, client, done){
       if(err){
-        throw err;      
+        throw err;
       }
       client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
 
@@ -37,6 +42,7 @@ router.post('/', function(req, res, done){
                                 error: error });      
         } else {
           done();
+          req.session.user = user;
           res.render('login', { title: 'Login Page' });
         }
       });
@@ -44,6 +50,5 @@ router.post('/', function(req, res, done){
   }
   
 });
-
 
 module.exports = router;

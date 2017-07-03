@@ -5,7 +5,13 @@ var pg = require('pg').native;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
+  res.set({
+    'Cache-Control': 'public',
+    'Pragma': 'public',
+    'Expires': '3600'
+  });
   res.render('index', { title: 'Main Page' });
+
 });
 
 //POST request for login
@@ -13,8 +19,6 @@ router.post('/', function(req, res){
 
   var username = req.body.user;
   var pwd = req.body.password;
-  console.log(req.body.user);
-  console.log(req.body.password);
 
   console.log("Login GET user: "+username);
   console.log("Login GET pwd: "+pwd);
@@ -24,7 +28,9 @@ router.post('/', function(req, res){
       throw err;
     }
 
-    client.query("SELECT * FROM users WHERE email = '"+username+"' AND password = '"+pwd+"';",
+    //client.query("SELECT * FROM users WHERE email = '"+username+"' AND password = '"+pwd+"';",
+    client.query("SELECT * FROM users WHERE email = '"+username+"' AND password = crypt('"+pwd+"', password);",
+
     function(error, result){
       if(error){
         done();
@@ -37,9 +43,14 @@ router.post('/', function(req, res){
       }
       else {
         console.log(result);
+        //req.session.user = user;
+        res.render('search', { title: 'Search Page' });
+        return res.status(200).send();
         done();
-        res.render('index', { title: 'Main Page',
+        /* Not currently working, giving error : Cannot read property 'email' of undefined
+        res.render('/', { title: 'Main Page',
                               user: result[0].email });
+                              */
       }
     });
   });
