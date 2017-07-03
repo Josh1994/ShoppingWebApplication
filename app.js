@@ -8,6 +8,8 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var http = require('http');
+var https = require('https');
 
 var index = require('./routes/index');
 var register = require('./routes/register');
@@ -18,10 +20,8 @@ var cart = require('./routes/cart');
 // Used for OAuth
 var url = require('url');
 var google = require('googleapis');
-
-//HTTPS Confih
-var https = require('https');
-
+var expressJWT = require('express-jwt');
+var jwt = require('jsonwebtoken');
 
 // Used for cookies/sessions
 var cookieParser = require('cookie-parser');
@@ -111,28 +111,6 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-/*
-app.use('/', function(req, res){
-  console.log('========================');
-  console.log('cookies')
-  console.log(req.cookies);
-  console.log('========================')
-  console.log('session')
-  console.log(req.session);
-});
-*/
-
-app.use(function(req, res, next){
-  if (req.headers['x-forwarded-proto'] !== 'https') {
-    var httpsVersion = [
-      'https://hatshop.herokuapp.com',
-      req.url].join('');
-    return res.redirect(httpsVersion);
-  }else{
-    return next();
-  }
-});
-
 module.exports = app;
 
 /* ------------------------------ OAuth - Google ------------------------------ */
@@ -162,4 +140,27 @@ app.get("/oauthcallback", function(req, res) {
 
     });
   });
+});
+
+/* Implements Adrian's code mentioned in the email. Forces communication with
+the web server to HTTPS only */
+app.use(function(req, res, next){
+  if (req.headers['x-forwarded-proto'] !== 'https') {
+    var httpsVersion = [
+      'https://hatshop.herokuapp.com',
+      req.url].join('');
+    return res.redirect(httpsVersion);
+  }else{
+    return next();
+  }
+});
+
+/* Prints the cookies in console for reference */
+app.use('/', function(req, res){
+  console.log('========================');
+  console.log('cookies')
+  console.log(req.cookies);
+  console.log('========================')
+  console.log('session')
+  console.log(req.session);
 });
