@@ -8,7 +8,9 @@ router.get('/', function(req, res, next) {
     'Cache-Control': 'public',
     'Pragma': 'public',
     'Expires': '3600'
+
   });
+  res.set('etag', 'A good etag');
   res.render('login', { title: 'Login Page' });
 });
 

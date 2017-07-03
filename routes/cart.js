@@ -13,7 +13,7 @@ router.get('/', function(req, res, next) {
       throw err;
     }
     client.query("select useritems.id, useritems.name, items.description, items.price FROM useritems inner join items ON useritems.users = "+userId+" AND useritems.name = items.name;", function(err, result){
-      
+
       if(err){ //Empty results
        res.status(500).send("Cart page cannot be loaded");
        done();
@@ -22,7 +22,7 @@ router.get('/', function(req, res, next) {
         done();
         userItems = result.rows;
         console.log(userItems);
-        res.render('cart', 
+        res.render('cart',
               { title: 'Cart Page',
                 cookie:req.cookies.user_id,              
                 userCart: userItems
@@ -41,7 +41,7 @@ router.get('/admin', function(req, res, next) {
       throw err;
     }
     client.query(" select*from userhistory where users="+userId+";", function(err, result){
-      
+
       if(err){ //Empty results
        res.status(500).send("Cart page cannot be loaded");
        done();
@@ -78,7 +78,7 @@ router.post('/removeHistory', function(req, res, next) {
       }
       else{
         done();
-        res.send( 
+        res.send(
           { message: 'Item removed in history' });
       }
     });
@@ -106,7 +106,7 @@ router.get('/history', function(req, res, next){
         userHistory = result.rows;
         console.log(userHistory);
         done();
-        res.send( 
+        res.send(
           { message: 'Item added to history',
             history: userHistory });
       }
@@ -128,7 +128,7 @@ router.post('/buy', function(req, res, next){
     if(err){
       throw err;
     }
-    
+
     client.query("insert into userhistory (users,name,price,description) values("+userId+",'"+name+"',"+price+",'"+description+"');", function(err, result){
       if(err){ //Empty results
        res.status(500).send("Insert into userhistory fail" +err);
@@ -143,7 +143,7 @@ router.post('/buy', function(req, res, next){
       }
       else{
         done();
-        res.send( 
+        res.send(
           { message: 'Item added to history' });
       }
     });
@@ -171,7 +171,7 @@ router.post('/remove', function(req, res, next){
       }
       else{
         done();
-        res.send( 
+        res.send(
           { message: 'Item removed in cart' });
       }
     });
@@ -195,7 +195,7 @@ router.post('/:item', function(req, res, next){
       }
       else{
         done();
-        res.send( 
+        res.send(
           { message: 'Item added to cart' });
       }
     });

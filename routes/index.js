@@ -10,7 +10,8 @@ router.get('/', function(req, res, next) {
     'Pragma': 'public',
     'Expires': '3600'
   });
-  res.render('index', { title: 'Main Page', cookie:req.cookies.user_id });
+  res.set('etag', 'A good etag');
+  res.render('index', { title: 'Main Page' , cookie:req.cookies.user_id});
 
 });
 
