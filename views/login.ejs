@@ -21,24 +21,11 @@
                 </div>
                 <button class="btn btn-lg btn-primary btn-block btn-signin" type="submit">Sign in</button>
             </form><!-- /form -->
-            <button class="btn btn-lg btn-primary btn-block btn-signin-google" ng-click="login()"> Sign in with Google </button>
+              <a href="/auth/google" class="btn btn-danger"><span class="fa fa-google-plus"></span> Google</a>
         </div><!-- /card-container -->
     </div><!-- /container -->
   </body>
 
-  <script>
-    var app = angular.module("app", []);
-    app.controller("ctrl", function($scope, $http, $window) {
-      var url;
-      var windowThatWasOpened;
-      $http.get("url").then(function(response) {
-        url = response.data;
-      });
-      $scope.login = function() {
-        windowThatWasOpened = $window.open(url, "Please sign in with Google", "width=500px,height:700px");
-      };
-    });
-  </script>
 
 
 </html>

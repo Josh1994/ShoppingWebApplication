@@ -2,6 +2,8 @@ var express = require('express');
 var router = express.Router();
 var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f536cc50c9aea6610ce4002d3cea@ec2-23-21-169-238.compute-1.amazonaws.com:5432/d6ns5drql89lm1";
 var pg = require('pg').native;
+var fs = require('fs');
+
 
 router.get('/', function(req, res, next) {
   var userId = 88; // Change when cookies implemented TODO
@@ -32,15 +34,47 @@ router.get('/', function(req, res, next) {
   });
 });
 
-router.get('/admin', function(req, res, next) {
-  var userId = req.query.userId; // Change when cookies implemented TODO
-  var userItems = [];
-  console.log("Admin search userid"+userId);
+router.get('/write', function(req, res, next) {
+  var stream = fs.createWriteStream("purchasehistory.txt");
+  var pickId = req.query.userId;
+  console.log("Pick id "+pickId);
   pg.connect(database, function(err, client, done){
     if(err){
       throw err;
     }
-    client.query(" select*from userhistory where users="+userId+";", function(err, result){
+    client.query("select*from userhistory where users="+pickId+";", function(err, result){
+      if(err){ //Empty results
+       res.status(500).send("Select a user first");
+       done();
+      }
+      else if(pickId==""){
+       res.status(500).send("Select a user first2");
+       done();
+      }
+      else{
+        done();
+
+        for(var i = 0; i < result.rows.length; i++){
+          stream.write(result.rows[i].name+" "+result.rows[i].price+" "+result.rows[i].description+"\n");
+        }
+        stream.end();
+        res.send(
+              { message: 'File written'
+                 });
+      }
+    });
+  });
+});
+
+router.get('/admin', function(req, res, next) {
+  var pickId = req.query.userId;
+  var userItems = [];
+  console.log("Admin search userid"+pickId);
+  pg.connect(database, function(err, client, done){
+    if(err){
+      throw err;
+    }
+    client.query(" select*from userhistory where users="+pickId+";", function(err, result){
 
       if(err){ //Empty results
        res.status(500).send("Cart page cannot be loaded");

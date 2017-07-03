@@ -8,6 +8,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var passport = require('passport');
 
 var index = require('./routes/index');
 var register = require('./routes/register');
@@ -15,7 +16,7 @@ var search = require('./routes/search');
 var login = require('./routes/login');
 var cart = require('./routes/cart');
 var logout = require('./routes/logout');
-
+var auth = require('./routes/auth');
 // Used for OAuth
 var url = require('url');
 var google = require('googleapis');
@@ -51,10 +52,12 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 // app.use(morgan('dev'));
 app.use(cookieParser());
-// app.use(session({secret: 'fjakfjb21e1',
-//                 saveUninitialized: true,
-//                 resave: true  }));
+app.use(session({secret: 'sestext',
+         saveUninitialized: true,
+         resave: true}));
 
+app.use(passport.initialize());
+app.use(passport.session()); // persistent login sessions
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
 //app.use('/javascripts',express.static(path.join(__dirname + 'node_modules/jquery/dist'))); // JQuery connection after npm install
@@ -66,6 +69,8 @@ app.use('/search', search);
 app.use('/login', login);
 app.use('/cart', cart);
 app.use('/logout', logout);
+app.use('/auth', auth);
+
 /* ------------------------ Start of Google Middleware --------------------------*/
 
 var plus = google.plus('v1');
