@@ -10,7 +10,6 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var http = require('http');
 var https = require('https');
-var sslRedirect = require('heroku-ssl-redirect');
 
 var index = require('./routes/index');
 var register = require('./routes/register');
@@ -94,8 +93,6 @@ var url = oauth2Client.generateAuthUrl({
 /* This is currently giving errors with the OAuth, even though there isn't anything wrong.
 Will need to work on a new implementation of the below error handler. */
 
-
-app.use(sslRedirect());
 
 // error handler
 app.use(function(err, req, res, next) {
