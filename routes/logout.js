@@ -5,14 +5,8 @@ var pg = require('pg').native;
 
 /* GET users listing. */
 router.get('/', function(req, res, next) { 
-  cookie = req.cookies;
-  for (var prop in cookie) {
-      if (!cookie.hasOwnProperty(prop)) {
-          continue;
-      }    
-      res.cookie(prop, '', {expires: new Date(0)});
-  }
-  res.redirect('/');  
+  res.clearCookie('user_id');
+  res.redirect('/');
 });
 
 module.exports = router;

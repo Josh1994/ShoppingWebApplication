@@ -15,42 +15,43 @@ router.get('/', function(req, res, next) {
 });
 
 //POST request for register
-router.post('/', function(req, res, done){
-  console.log(req.body);
-  var email = req.body.email;
-  var password = req.body.psw;
-  var repeat = req.body.pswrepeat;
-  console.log(req.body.email);
-  console.log(req.body.psw);
-  console.log(req.body.pswrepeat);
+// router.post('/', function(req, res, done){
+//   console.log(req.body);
+//   var email = req.body.email;
+//   var password = req.body.psw;
+//   var repeat = req.body.pswrepeat;
+//   console.log(req.body.email);
+//   console.log(req.body.psw);
+//   console.log(req.body.pswrepeat);
 
-  if(password != repeat){
-      console.log("Passwords do not match");
-      res.redirect('/register');
+//   if(password != repeat){
+//       console.log("Passwords do not match");
+//       res.redirect('/register');
 
-  }
-  else{
-    console.log("Password and repeat match")
-    pg.connect(database, function(err, client, done){
-      if(err){
-        throw err;
-      }
-      client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
+//   }
+//   else{
+//     console.log("Password and repeat match")
+//     pg.connect(database, function(err, client, done){
+//       if(err){
+//         throw err;
+//       }
+//       client.query("insert into users(email, password, userRole) select '"+email+"','"+password+"','member';"
 
-      ,function(error, result){
-        if(error){
-          done(); 
-          res.render('error', { message: 'User Registration error',
-                                error: error });      
-        } else {
-          done();
-          req.session.user = user;
-          res.render('login', { title: 'Login Page' });
-        }
-      });
-    });
-  }
+//       ,function(error, result){
+//         if(error){
+//           done(); 
+//           res.render('error', { message: 'User Registration error',
+//                                 error: error });      
+//         } else {
+//           done();
+//          //req.session.user = user;
+
+//           res.render('login', { title: 'Login Page' });
+//         }
+//       });
+//     });
+//   }
   
-});
+// });
 
 module.exports = router;

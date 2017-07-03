@@ -14,6 +14,7 @@ var register = require('./routes/register');
 var search = require('./routes/search');
 var login = require('./routes/login');
 var cart = require('./routes/cart');
+var logout = require('./routes/logout');
 
 // Used for OAuth
 var url = require('url');
@@ -48,11 +49,11 @@ app.set('view engine', 'ejs');
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(morgan('dev'));
+// app.use(morgan('dev'));
 app.use(cookieParser());
-app.use(session({secret: 'fjakfjb21e1',
-                saveUninitialized: true,
-                resave: true  }));
+// app.use(session({secret: 'fjakfjb21e1',
+//                 saveUninitialized: true,
+//                 resave: true  }));
 
 app.use(express.static(path.join(__dirname, 'public')));
 //app.use('/javascripts', express.static(__dirname + 'node_modules/bootstrap/dist/js')); // Bootstrap JS connection after npm install
@@ -64,7 +65,7 @@ app.use('/register', register);
 app.use('/search', search);
 app.use('/login', login);
 app.use('/cart', cart);
-
+app.use('/logout', logout);
 /* ------------------------ Start of Google Middleware --------------------------*/
 
 var plus = google.plus('v1');
@@ -109,14 +110,14 @@ app.use(function(err, req, res, next) {
   res.render('error');
 });
 
-app.use('/', function(req, res){
-  console.log('========================');
-  console.log('cookies')
-  console.log(req.cookies);
-  console.log('========================')
-  console.log('session')
-  console.log(req.session);
-});
+// app.use('/', function(req, res){
+//   console.log('========================');
+//   console.log('cookies')
+//   console.log(req.cookies);
+//   console.log('========================')
+//   console.log('session')
+//   console.log(req.session);
+// });
 
 
 app.use(function(req, res, next){

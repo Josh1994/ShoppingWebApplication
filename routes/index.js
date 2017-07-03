@@ -5,12 +5,12 @@ var pg = require('pg').native;
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.set({
-    'Cache-Control': 'public',
-    'Pragma': 'public',
-    'Expires': '3600'
-  });
-  res.set('etag', 'A good etag');
+  // res.set({
+  //   'Cache-Control': 'public',
+  //   'Pragma': 'public',
+  //   'Expires': '3600'
+  // });
+  // res.set('etag', 'A good etag');
   res.render('index', { title: 'Main Page' , cookie:req.cookies.user_id});
 
 });
@@ -43,8 +43,11 @@ router.post('/', function(req, res){
         res.send("Wrong username / password");
       }
       else {
-        console.log(result);
+        console.log(result.rows[0].id);
         //req.session.user = user;
+        var id = result.rows[0].id;
+        res.cookie('user_id',id, {maxAge : 99999999 });
+        console.log(req.cookies.user_id);
         res.render('search', { title: 'Search Page', cookie:req.cookies.user_id });
         return res.status(200).send();
         done();

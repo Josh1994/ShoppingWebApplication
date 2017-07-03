@@ -4,12 +4,12 @@ var database = "postgres://tivngnhwlxtmkp:4f2f1fff9cc8065295ac874e18ddd8d9f322f5
 var pg = require('pg').native;
 
 router.get('/', function(req, res, next) {
-  res.set({
-    'Cache-Control': 'public',
-    'Pragma': 'public',
-    'Expires': '3600'
-  });
-  res.set('etag', 'A good etag');
+  // res.set({
+  //   'Cache-Control': 'public',
+  //   'Pragma': 'public',
+  //   'Expires': '3600'
+  // });
+  // res.set('etag', 'A good etag');
   console.log("Search router / database: "+process.env.DATABASE_URL);
   console.log("Search router / req.param: "+req.params.sometime);
   //console.log(req.query.paramName);
