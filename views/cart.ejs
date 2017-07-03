@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <% include layout.ejs -%>
+  <script src="/javascripts/cartajax.js"></script>
+  </head>
+  <body>
+    <ul class="nav nav-tabs">
+      <li class="active"><a href="#cart" data-toggle="tab" aria-expanded="true">Cart</a></li>
+      <li class="" id="history"><a href="#bought" data-toggle="tab" aria-expanded="false">History</a></li>
+      <li class="" id="admin"><a href="#admini" data-toggle="tab" aria-expanded="false">Admin(Will be removed soon)</a></li>      
+    </ul>
+    <div id="myTabContent" class="tab-content">
+      <br>
+      <div class="tab-pane fade active in" id="cart">
+        <% for(var i=0; i<userCart.length; i++) {%>
+              <div class="item  col-xs-4 col-lg-4">
+                  <div class="thumbnail">
+                      <img class="group list-group-image" src="http://placehold.it/400x250/000/fff" alt="" />
+                      <div class="caption">
+                          <h4 id="productName" class="group inner list-group-item-heading">
+                               <%= userCart[i].name %></h4>
+                          <p class="group inner list-group-item-text">
+                               <%= userCart[i].description %> </p>
+                          <div class="row">
+                              <div class="col-xs-12 col-md-6">
+                                  <p class="lead" val=<%= userCart[i].id %> >
+                                     <%= userCart[i].price %> </p>
+                              </div>
+                              <div class="col-xs-12 col-md-6">
+                                  <a class="btn btn-success" href="#" id="buyItem">Buy</a>
+                              </div>
+                              <div class="col-xs-12 col-md-6">
+                                  <a class="btn btn-success" href="#" id="removeItem">Remove</a>
+                              </div>       
+                          </div>
+                      </div>
+                  </div>
+              </div>
+        <% } %>
+      </div>
+      <div class="tab-pane fade" id="bought">
+      </div>
+      <div class="tab-pane fade" id="admini">
+        <div class="form-group">
+          <div class="input-group">
+            <span class="input-group-addon fa fa-search"></span>
+            <input class="form-control" name="searchText" type="text">
+            <span class="input-group-btn">
+              <button id="searchButton" class="btn btn-default" type="button">Search</button>
+            </span>
+          </div>
+        </div> 
+        <div id="logs" class="row list-group">
+        </div>       
+      </div>      
+      </div>
+    </div>
+  </body>
+</html>

@@ -39,7 +39,7 @@ router.post('/', function(req, res){
       }
       else if(result.rowCount==0){
         done();
-        res.send("Username and password do not match. Please try again. ");
+        res.send("Wrong username / password");
       }
       else {
         console.log(result);
@@ -47,7 +47,6 @@ router.post('/', function(req, res){
         res.render('search', { title: 'Search Page' });
         return res.status(200).send();
         done();
-
         /* Not currently working, giving error : Cannot read property 'email' of undefined
         res.render('/', { title: 'Main Page',
                               user: result[0].email });
