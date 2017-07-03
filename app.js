@@ -63,6 +63,8 @@ app.use('/register', register);
 app.use('/search', search);
 app.use('/login', login);
 
+
+//middleware for etag headers 
 /* ------------------------ Start of Google Middleware --------------------------*/
 
 var plus = google.plus('v1');
