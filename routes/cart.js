@@ -7,6 +7,7 @@ router.get('/', function(req, res, next) {
   var userId = 88; // Change when cookies implemented TODO
   var userItems = [];
 
+
   pg.connect(database, function(err, client, done){
     if(err){
       throw err;
@@ -23,6 +24,7 @@ router.get('/', function(req, res, next) {
         console.log(userItems);
         res.render('cart', 
               { title: 'Cart Page',
+                cookie:req.cookies.user_id,              
                 userCart: userItems
                  });
       }

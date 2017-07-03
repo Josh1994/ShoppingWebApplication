@@ -13,10 +13,12 @@ router.get('/', function(req, res, next) {
   console.log("Search router / req.param: "+req.params.sometime);
   //console.log(req.query.paramName);
   console.log(req.query);
+  console.log(req.cookies.user_id);
  // done();
   res.render('search',
               { title: 'Search Page',
-                url: '/search'
+                url: '/search',
+                cookie:req.cookies.user_id
                  });
 });
 
@@ -78,6 +80,7 @@ router.get('/:tag', function(req, res, next) {
         res.render('search',
           { title: 'Search Page',
             tag: type,
+            cookie:req.cookies.user_id,
             itemArray:searchResults});
       }
     });

@@ -54,8 +54,14 @@ if it is defined.  -->
       <ul class="nav navbar-nav navbar-right">
       <!-- Check if a user is logged in and redirect to the cart page otherwise go home page -->
         <li><a href="/cart"> <span class="glyphicon glyphicon-shopping-cart"></span> Cart </a> </li>
-        <li><a href="/register"> Register </a> </li>
-        <li><a href="/login"> Login </a> </li>
+        <% if(typeof cookie != "undefined"){ %>
+            <li><a href="/logout"> Logout </a> </li>
+          </ul>  
+        <% } else{ %>  
+            <li><a href="/register"> Register </a> </li>
+            <li><a href="/login"> Login </a> </li>
+          </ul>  
+        <% } %>
       </ul>
     </div>
   </div>
