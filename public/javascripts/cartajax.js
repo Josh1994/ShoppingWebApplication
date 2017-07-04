@@ -24,7 +24,27 @@ $(document).ready(function() {
         }
       });   
     });
-
+    
+    $('#printHistory').click(function(event){
+      event.preventDefault();
+      var userid = $('input[name=searchText]').val();
+      $.ajax({
+        method: 'GET',
+        url: '/cart/write',
+        data: 
+          ({ "userId": userid }),        
+        contentType: "application/json",
+        dataType: "json",
+        success:function(data){
+        console.log("GET success response "+data.message);  
+        },
+        error:function(xhr, status, error, data){
+          var json = data;
+          console.log("GET error response "+xhr.responseText);
+        }
+      }); 
+    });  
+    
     $('#searchButton').click(function(event){
       event.preventDefault();
       var userid = $('input[name=searchText]').val();
